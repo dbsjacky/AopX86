@@ -12,7 +12,7 @@
 
 sed -i ' s/192.168.1.1/192.168.1.2/g ' package/base-files/files/bin/config_generate
 #sed -i 's@root:$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.:0:0:99999:7:::@root:$1$lDEBNXNf$a3kW2SvrqRB3NuL10ZG4e/:19335:0:99999:7:::@g' package/lean/default-settings/files/zzz-default-settings
-#sed -i 's/KERNEL_PATCHVER:=5.15/KERNEL_PATCHVER:=6.0/g' target/linux/x86/Makefile
+sed -i 's/KERNEL_PATCHVER:=6.1/KERNEL_PATCHVER:=6.0/g' target/linux/x86/Makefile
 #sed -i "s/.*PKG_VERSION:=.*/PKG_VERSION:=4.3.9_v1.2.14/" package/lean/qBittorrent-static/Makefile
 #sed -i "s/.*PKG_VERSION:=.*/PKG_VERSION:=5.0.0-stable/" package/libs/wolfssl/Makefile
 # welcome test
