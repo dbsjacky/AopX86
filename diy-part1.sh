@@ -28,7 +28,7 @@ touch files/usr/share/Check_Update.sh
 touch files/usr/share/da.sh
 
 
-cat>rename.sh<<-\EOF
+cat>rename.sh
 #!/bin/bash
 rm -rf  bin/targets/x86/64/config.buildinfo
 rm -rf  bin/targets/x86/64/feeds.buildinfo
@@ -49,7 +49,7 @@ ver510=`grep "LINUX_VERSION-5.10 ="  include/kernel-5.10 | cut -d . -f 3`
 ver515=`grep "LINUX_VERSION-5.15 ="  include/kernel-5.15 | cut -d . -f 3`
 ver61=`grep "LINUX_VERSION-6.1 ="  include/kernel-6.1 | cut -d . -f 3`  
 if [ "$str1" = "5.4" ];then
-   mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz       bin/targets/x86/64/openwrt_x86-64-${rename_version}_${str1}.${ver54}_dev_d.img.gz
+  mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz       bin/targets/x86/64/openwrt_x86-64-${rename_version}_${str1}.${ver54}_dev_d.img.gz
   mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz   bin/targets/x86/64/openwrt_x86-64-${rename_version}_${str1}.${ver54}_uefi-gpt_dev_d.img.gz
 elif [ "$str1" = "4.19" ];then
   mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz       bin/targets/x86/64/openwrt_x86-64-${rename_version}_${str1}.${ver419}_dev_d.img.gz
@@ -58,18 +58,19 @@ elif [ "$str1" = "4.14" ];then
   mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz       bin/targets/x86/64/openwrt_x86-64-${rename_version}_${str1}.${ver414}_dev_d.img.gz
   mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz   bin/targets/x86/64/openwrt_x86-64-${rename_version}_${str1}.${ver414}_uefi-gpt_dev_d.img.gz
 elif [ "$str1" = "5.10" ];then
-   mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz       bin/targets/x86/64/openwrt_x86-64-${rename_version}_${str1}.${ver510}_dev_d.img.gz
+  mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz       bin/targets/x86/64/openwrt_x86-64-${rename_version}_${str1}.${ver510}_dev_d.img.gz
   mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz   bin/targets/x86/64/openwrt_x86-64-${rename_version}_${str1}.${ver510}_uefi-gpt_dev_d.img.gz
 elif [ "$str1" = "5.15" ];then
-   mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz       bin/targets/x86/64/openwrt_x86-64-${rename_version}_${str1}.${ver515}_dev_d.img.gz
+  mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz       bin/targets/x86/64/openwrt_x86-64-${rename_version}_${str1}.${ver515}_dev_d.img.gz
   mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz   bin/targets/x86/64/openwrt_x86-64-${rename_version}_${str1}.${ver515}_uefi-gpt_dev_d.img.gz
 elif [ "$str1" = "6.1" ];then
 if [ ! $ver61 ]; then
   mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz       bin/targets/x86/64/openwrt_x86-64-${rename_version}_${str1}.${ver61}0_dev_d.img.gz
   mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz   bin/targets/x86/64/openwrt_x86-64-${rename_version}_${str1}.${ver61}0_uefi-gpt_dev_d.img.gz 
  else
-   mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz       bin/targets/x86/64/openwrt_x86-64-${rename_version}_${str1}.${ver61}_dev_d.img.gz
+  mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz       bin/targets/x86/64/openwrt_x86-64-${rename_version}_${str1}.${ver61}_dev_d.img.gz
   mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz   bin/targets/x86/64/openwrt_x86-64-${rename_version}_${str1}.${ver61}_uefi-gpt_dev_d.img.gz
+  fi
 fi
 ls bin/targets/x86/64 | grep "_d.img" | cut -d - -f 3 | cut -d _ -f 1-2 > wget/op_version1
 #md5
@@ -81,9 +82,8 @@ cd bin/targets/x86/64
 md5sum $openwrt_dev > openwrt_dev.md5
 md5sum $openwrt_dev_uefi > openwrt_dev_uefi.md5
 exit 0
-EOF
 
-cat>d.sh<<-\EOOF
+cat>d.sh
 #!/bin/bash
 d_version="`date '+%y%m%d%H%M'`_dev_d" 
 echo $d_version >  wget/DISTRIB_REVISION1 
@@ -100,7 +100,7 @@ if [ $? != 0 ]; then
 	cat>> package/lean/default-settings/files/zzz-default-settings<<-EOF
 	sed -i '$ a alias d="sh /usr/share/Check_Update.sh"' /etc/profile
 	exit 0
-	EOF
+	
 fi
 grep "da.sh"  package/lean/default-settings/files/zzz-default-settings
 if [ $? != 0 ]; then
@@ -108,11 +108,11 @@ if [ $? != 0 ]; then
 	cat>> package/lean/default-settings/files/zzz-default-settings<<-EOF
 	sed -i '$ a alias da="sh /usr/share/da.sh"' /etc/profile
 	exit 0
-	EOF
+	
 fi
-EOOF
 
-cat>files/usr/share/Check_Update.sh<<-\EOF
+
+cat>files/usr/share/Check_Update.sh
 #!/bin/bash
 # https://github.com/dbsjacky/AopX86
 # AopX86 By dbsjacky 20210505
@@ -336,5 +336,5 @@ else
 fi
 
 exit 0
-EOF
+
 
